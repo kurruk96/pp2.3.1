@@ -27,7 +27,7 @@ public class UsersController {
     }
 
     @GetMapping("/{id}")
-    public String userPage(@PathVariable("id") int id, Model model) {
+    public String userPage(@PathVariable("id") long id, Model model) {
         model.addAttribute("user", userService.findOne(id));
         return "show";
     }
@@ -50,7 +50,7 @@ public class UsersController {
     }
 
     @GetMapping("/{id}/edit")
-    public String edit(@PathVariable("id") int id, Model model) {
+    public String edit(@PathVariable("id") long id, Model model) {
         model.addAttribute("user", userService.findOne(id));
         return "edit";
     }
@@ -58,7 +58,7 @@ public class UsersController {
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("user") @Valid User user,
                          BindingResult bindingResult,
-                         @PathVariable("id") int id) {
+                         @PathVariable("id") long id) {
         if (bindingResult.hasErrors()) {
             return "edit";
         } else {
@@ -68,8 +68,8 @@ public class UsersController {
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable("id") int id) {
-        userService.delete(id);
+    public String delete(@PathVariable("id") long id) {
+        userService.deleteById(id);
         return "redirect:/users";
     }
 
